@@ -232,8 +232,8 @@ function Signup() {
                             helperText={errors.confirm_password?.message}
                         ></TextField>
                         <TermsConditions
-                            agree={() => setAgreeToTerms(true)}
-                            disagree={() => setAgreeToTerms(false)}
+                            accept={() => setAgreeToTerms(true)}
+                            decline={() => setAgreeToTerms(false)}
                             value={agreeToTerms}
                         />
                     </Stack>

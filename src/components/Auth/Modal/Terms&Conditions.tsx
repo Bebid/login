@@ -14,18 +14,24 @@ import {
     FormGroup,
 } from "@mui/material";
 
-function TermsConditions({ agree, disagree, value }: any) {
+type TermsConditionProps = {
+    accept: () => void;
+    decline: () => void;
+    value: boolean;
+};
+
+function TermsConditions({ accept, decline, value }: TermsConditionProps) {
     const [dialog, setDialog] = useState(false);
 
     const checkboxUpdate = (
         _: React.ChangeEvent<HTMLInputElement>,
         checked: boolean
     ) => {
-        checked ? agree() : disagree();
+        checked ? accept() : decline();
     };
 
     const submitDialog = (checked: boolean) => {
-        checked ? agree() : disagree();
+        checked ? accept() : decline();
         setDialog(false);
     };
 
@@ -62,7 +68,7 @@ function TermsConditions({ agree, disagree, value }: any) {
                 open={dialog}
                 onClose={() => setDialog(false)}
                 aria-labelledby="alert-dialog-title"
-                aria-aria-describedby="alert-dialog-description"
+                aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
                     Terms & Conditions
@@ -130,11 +136,14 @@ function TermsConditions({ agree, disagree, value }: any) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => submitDialog(false)}>
-                        Disagree
-                    </Button>
-                    <Button onClick={() => submitDialog(true)} autoFocus>
-                        Agree
+                    <Button onClick={() => submitDialog(false)}>Decline</Button>
+                    <Button
+                        onClick={() => submitDialog(true)}
+                        variant="contained"
+                        disableElevation
+                        autoFocus
+                    >
+                        Accept
                     </Button>
                 </DialogActions>
             </Dialog>
