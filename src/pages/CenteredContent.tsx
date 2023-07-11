@@ -7,7 +7,7 @@ type ParentComponent = {
 };
 function CenteredContent({ children, spacing }: ParentComponent) {
     return (
-        <Stack direction="row" sx={{ height: "100%", paddingTop: "120px" }}>
+        <Stack direction="row" sx={{ height: "100%" }} alignItems="center">
             <Grid container spacing={2}>
                 <Grid
                     item

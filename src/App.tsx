@@ -44,7 +44,7 @@ function App() {
 
     return (
         <authContext.Provider value={{ auth, user }}>
-            <Box sx={{ height: "100vh", padding: 2 }}>
+            <Box sx={{ height: "100vh", paddingX: 2 }}>
                 <Routes>
                     <Route
                         path="/"
@@ -57,7 +57,7 @@ function App() {
                     <Route
                         path="/login"
                         element={
-                            <CenteredContent>
+                            <CenteredContent spacing={4}>
                                 <LoginPage />
                             </CenteredContent>
                         }

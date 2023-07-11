@@ -1,12 +1,25 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Stack } from "@mui/material";
+import { Stack, Link } from "@mui/material";
+import "./nav.css";
 
 function AuthNav() {
     return (
         <Stack spacing={2} direction="row">
-            <NavLink to="email">Email</NavLink>
-            <NavLink to="phone">Phone</NavLink>
+            <Link
+                component={NavLink}
+                style={{ textDecoration: "none" }}
+                to="email"
+            >
+                Email
+            </Link>
+            <Link
+                component={NavLink}
+                style={{ textDecoration: "none" }}
+                to="phone"
+            >
+                Phone
+            </Link>
         </Stack>
     );
 }

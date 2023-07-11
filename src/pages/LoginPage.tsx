@@ -1,12 +1,15 @@
 import AuthNav from "../components/Auth/UI/AuthNav";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { Typography, Stack } from "@mui/material";
 
 function LoginPage() {
     return (
         <>
-            <AuthNav></AuthNav>
-            <Outlet />
-            <Link to="/signup">Signup</Link>
+            <Typography variant="h2">Login</Typography>
+            <Stack spacing={3}>
+                <AuthNav></AuthNav>
+                <Outlet></Outlet>
+            </Stack>
         </>
     );
 }
