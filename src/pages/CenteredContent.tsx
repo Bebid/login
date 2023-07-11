@@ -1,11 +1,12 @@
 import React from "react";
-import { Stack, Grid } from "@mui/material";
+import { Stack, Grid, Typography } from "@mui/material";
 
 type ParentComponent = {
+    title?: string;
     children: React.ReactNode;
     spacing?: number;
 };
-function CenteredContent({ children, spacing }: ParentComponent) {
+function CenteredContent({ children, spacing, title }: ParentComponent) {
     return (
         <Stack direction="row" sx={{ height: "100%" }} alignItems="center">
             <Grid container spacing={2}>
@@ -18,7 +19,14 @@ function CenteredContent({ children, spacing }: ParentComponent) {
                     sx={{ display: { xs: "none", sm: "block" } }}
                 ></Grid>
                 <Grid item xs={12} sm={8} md={4} lg={4} sx={{ minWidth: 300 }}>
-                    <Stack spacing={spacing || 2}>{children}</Stack>
+                    <Stack spacing={spacing || 2}>
+                        {title && (
+                            <Typography variant="h3" component="h1">
+                                {title}
+                            </Typography>
+                        )}
+                        {children}
+                    </Stack>
                 </Grid>
                 <Grid
                     item

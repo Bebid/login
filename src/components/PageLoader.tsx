@@ -1,8 +1,14 @@
-import React from "react";
 import CenteredContent from "../pages/CenteredContent";
+import { Typography } from "@mui/material";
 
 function PageLoader() {
-    return <CenteredContent>Page Loading...</CenteredContent>;
+    return (
+        <CenteredContent title="Loading..." spacing={2}>
+            <Typography>
+                Apps component are being rendered. Please wait for a while.
+            </Typography>
+        </CenteredContent>
+    );
 }
 
 export default PageLoader;

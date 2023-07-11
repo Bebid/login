@@ -85,179 +85,164 @@ function Signup() {
     };
 
     return (
-        <>
-            <Typography variant="h2">Signup</Typography>
-
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                <Stack spacing={4}>
-                    <Stack spacing={2}>
-                        {!!formReducerState.error && (
-                            <Alert severity="error">
-                                <AlertTitle>
-                                    {formReducerState.error?.title}
-                                </AlertTitle>
-                                {formReducerState.error?.details}
-                            </Alert>
-                        )}
-                        <TextField
-                            error={!!errors.username}
-                            label="Username"
-                            {...register("username", {
-                                required: "Please enter a username",
-                                validate: {
-                                    isExist: async (username) => {
-                                        const response = await axios.get(
-                                            `https://login-aa13c-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="username"&equalTo="${username}"`
-                                        );
-                                        return (
-                                            Object.keys(response.data)
-                                                .length === 0 ||
-                                            "Username already exist"
-                                        );
-                                    },
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Stack spacing={4}>
+                <Stack spacing={2}>
+                    {!!formReducerState.error && (
+                        <Alert severity="error">
+                            <AlertTitle>
+                                {formReducerState.error?.title}
+                            </AlertTitle>
+                            {formReducerState.error?.details}
+                        </Alert>
+                    )}
+                    <TextField
+                        error={!!errors.username}
+                        label="Username"
+                        {...register("username", {
+                            required: "Please enter a username",
+                            validate: {
+                                isExist: async (username) => {
+                                    const response = await axios.get(
+                                        `https://login-aa13c-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="username"&equalTo="${username}"`
+                                    );
+                                    return (
+                                        Object.keys(response.data).length ===
+                                            0 || "Username already exist"
+                                    );
                                 },
-                            })}
-                            helperText={errors.username?.message}
-                        ></TextField>
-                        <TextField
-                            error={!!errors.email}
-                            label="Email Address"
-                            type="email"
-                            helperText={errors.email?.message}
-                            {...register("email", {
-                                required: "Please enter an email address",
-                                pattern: {
-                                    value: /[^\s]*@[a-z0-9.-]*/i,
-                                    message:
-                                        "Please enter a valid email address",
+                            },
+                        })}
+                        helperText={errors.username?.message}
+                    ></TextField>
+                    <TextField
+                        error={!!errors.email}
+                        label="Email Address"
+                        type="email"
+                        helperText={errors.email?.message}
+                        {...register("email", {
+                            required: "Please enter an email address",
+                            pattern: {
+                                value: /[^\s]*@[a-z0-9.-]*/i,
+                                message: "Please enter a valid email address",
+                            },
+                            validate: {
+                                isExist: async (email) => {
+                                    const response = await axios.get(
+                                        `https://login-aa13c-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="email"&equalTo="${email}"`
+                                    );
+                                    return (
+                                        Object.keys(response.data).length ===
+                                            0 || "Email already exist"
+                                    );
                                 },
-                                validate: {
-                                    isExist: async (email) => {
-                                        const response = await axios.get(
-                                            `https://login-aa13c-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="email"&equalTo="${email}"`
-                                        );
-                                        return (
-                                            Object.keys(response.data)
-                                                .length === 0 ||
-                                            "Email already exist"
-                                        );
-                                    },
+                            },
+                        })}
+                    ></TextField>
+                    <TextField
+                        error={!!errors.password}
+                        label="Password"
+                        type={passVis ? "text" : "password"}
+                        helperText={errors.password?.message}
+                        {...register("password", {
+                            required: "Please enter a password",
+                            pattern: {
+                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}[\];:"'<>,.?/|\\~])[A-Za-z\d!@#$%^&*()_+\-={}[\];:"'<>,.?/|\\~]{8,}$/,
+                                message: "Please enter a secured password",
+                            },
+                        })}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    {passVis ? (
+                                        <IconButton
+                                            onClick={() =>
+                                                setPassVis((state) => !state)
+                                            }
+                                            disableRipple
+                                        >
+                                            <VisibilityOffIcon></VisibilityOffIcon>
+                                        </IconButton>
+                                    ) : (
+                                        <IconButton
+                                            onClick={() =>
+                                                setPassVis((state) => !state)
+                                            }
+                                            disableRipple
+                                        >
+                                            <VisibilityIcon></VisibilityIcon>
+                                        </IconButton>
+                                    )}
+                                </InputAdornment>
+                            ),
+                        }}
+                    ></TextField>
+                    <TextField
+                        error={!!errors.confirm_password}
+                        label="Confirm Password"
+                        type={conPassVis ? "text" : "password"}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    {conPassVis ? (
+                                        <IconButton
+                                            onClick={() =>
+                                                setConPassVis((state) => !state)
+                                            }
+                                        >
+                                            <VisibilityOffIcon></VisibilityOffIcon>
+                                        </IconButton>
+                                    ) : (
+                                        <IconButton
+                                            onClick={() =>
+                                                setConPassVis((state) => !state)
+                                            }
+                                        >
+                                            <VisibilityIcon></VisibilityIcon>
+                                        </IconButton>
+                                    )}
+                                </InputAdornment>
+                            ),
+                        }}
+                        {...register("confirm_password", {
+                            required: "Please confirm your password",
+                            validate: {
+                                isSame: (field) => {
+                                    return (
+                                        field === getValues("password") ||
+                                        "Password is not the same"
+                                    );
                                 },
-                            })}
-                        ></TextField>
-                        <TextField
-                            error={!!errors.password}
-                            label="Password"
-                            type={passVis ? "text" : "password"}
-                            helperText={errors.password?.message}
-                            {...register("password", {
-                                required: "Please enter a password",
-                                pattern: {
-                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}[\];:"'<>,.?/|\\~])[A-Za-z\d!@#$%^&*()_+\-={}[\];:"'<>,.?/|\\~]{8,}$/,
-                                    message: "Please enter a secured password",
-                                },
-                            })}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        {passVis ? (
-                                            <IconButton
-                                                onClick={() =>
-                                                    setPassVis(
-                                                        (state) => !state
-                                                    )
-                                                }
-                                                disableRipple
-                                            >
-                                                <VisibilityOffIcon></VisibilityOffIcon>
-                                            </IconButton>
-                                        ) : (
-                                            <IconButton
-                                                onClick={() =>
-                                                    setPassVis(
-                                                        (state) => !state
-                                                    )
-                                                }
-                                                disableRipple
-                                            >
-                                                <VisibilityIcon></VisibilityIcon>
-                                            </IconButton>
-                                        )}
-                                    </InputAdornment>
-                                ),
-                            }}
-                        ></TextField>
-                        <TextField
-                            error={!!errors.confirm_password}
-                            label="Confirm Password"
-                            type={conPassVis ? "text" : "password"}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        {conPassVis ? (
-                                            <IconButton
-                                                onClick={() =>
-                                                    setConPassVis(
-                                                        (state) => !state
-                                                    )
-                                                }
-                                            >
-                                                <VisibilityOffIcon></VisibilityOffIcon>
-                                            </IconButton>
-                                        ) : (
-                                            <IconButton
-                                                onClick={() =>
-                                                    setConPassVis(
-                                                        (state) => !state
-                                                    )
-                                                }
-                                            >
-                                                <VisibilityIcon></VisibilityIcon>
-                                            </IconButton>
-                                        )}
-                                    </InputAdornment>
-                                ),
-                            }}
-                            {...register("confirm_password", {
-                                required: "Please confirm your password",
-                                validate: {
-                                    isSame: (field) => {
-                                        return (
-                                            field === getValues("password") ||
-                                            "Password is not the same"
-                                        );
-                                    },
-                                },
-                            })}
-                            helperText={errors.confirm_password?.message}
-                        ></TextField>
-                        <TermsConditions
-                            accept={() => setAgreeToTerms(true)}
-                            decline={() => setAgreeToTerms(false)}
-                            value={agreeToTerms}
-                        />
-                    </Stack>
-                    <Button
-                        variant="contained"
-                        type="submit"
-                        disabled={formReducerState.status === "P"}
-                        disableElevation
-                    >
-                        Signup
-                    </Button>
-                    <Typography>
-                        Have an account?{" "}
-                        <Link
-                            component={RouteLink}
-                            to="/login"
-                            style={{ textDecoration: "none" }}
-                        >
-                            Login
-                        </Link>
-                    </Typography>
+                            },
+                        })}
+                        helperText={errors.confirm_password?.message}
+                    ></TextField>
+                    <TermsConditions
+                        accept={() => setAgreeToTerms(true)}
+                        decline={() => setAgreeToTerms(false)}
+                        value={agreeToTerms}
+                    />
                 </Stack>
-            </form>
-        </>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    disabled={formReducerState.status === "P"}
+                    disableElevation
+                >
+                    Signup
+                </Button>
+                <Typography>
+                    Have an account?{" "}
+                    <Link
+                        component={RouteLink}
+                        to="/login"
+                        style={{ textDecoration: "none" }}
+                    >
+                        Login
+                    </Link>
+                </Typography>
+            </Stack>
+        </form>
     );
 }
 
