@@ -13,6 +13,8 @@ import LoginByEmail from "./components/Auth/LoginByEmail";
 import LoginByPhone from "./components/Auth/LoginByPhone";
 import CenteredContent from "./pages/CenteredContent";
 import Signup from "./components/Auth/Signup";
+import Home from "./pages/Home";
+import PageLoader from "./components/PageLoader";
 
 export type AuthContext = {
     auth: Auth | null;
@@ -37,13 +39,21 @@ function App() {
     });
 
     if (loading) {
-        return <>Loading</>;
+        return <PageLoader />;
     }
 
     return (
         <authContext.Provider value={{ auth, user }}>
             <Box sx={{ height: "100vh", padding: 2 }}>
                 <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <CenteredContent spacing={3}>
+                                <Home></Home>
+                            </CenteredContent>
+                        }
+                    />
                     <Route
                         path="/login"
                         element={
