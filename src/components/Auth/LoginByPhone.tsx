@@ -1,48 +1,63 @@
-import React, { useContext, useState, useRef, useReducer } from "react";
-import { LoginByPhoneForm } from "./types";
-import { useForm } from "react-hook-form";
+import { useContext, useState, useRef, useReducer, FormEvent } from "react";
 import {
     Auth,
     ConfirmationResult,
     RecaptchaVerifier,
     signInWithPhoneNumber,
 } from "firebase/auth";
-import { AuthContext, authContext } from "../../App";
+import { Stack, Button, Alert, AlertTitle } from "@mui/material";
+import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
+
 import OTP from "./OTP";
-import {
-    TextField,
-    Stack,
-    Button,
-    Collapse,
-    Alert,
-    AlertTitle,
-} from "@mui/material";
 import { formReducer, formInitState } from "./Reducers/formReducer";
 import { getErrMessage } from "../../firebase/errorMessages";
+import { AuthContext, authContext } from "../../App";
 
 function LoginByPhone() {
-    const recaptchaRef = useRef<HTMLDivElement>(null);
-    const { register, handleSubmit } = useForm<LoginByPhoneForm>();
     const { auth } = useContext(authContext) as AuthContext;
 
-    const [showOTP, setShowOTP] = useState<boolean>(false);
-    const [confirmOTP, setConfirmOTP] = useState<ConfirmationResult | null>(
-        null
-    );
+    const recaptchaRef = useRef<HTMLDivElement>(null);
+
+    const [showOTP, setShowOTP] = useState(false);
+    const [confirmOTP, setConfirmOTP] = useState<ConfirmationResult>();
+    const [phone, setPhone] = useState("");
+
+    const handleChange = (newValue: string) => {
+        setPhone(newValue);
+    };
 
     const [formReducerState, formDispatch] = useReducer(
         formReducer,
         formInitState
     );
 
-    const onSubmit = (data: LoginByPhoneForm) => {
+    const onSubmit = (event: FormEvent) => {
+        event.preventDefault();
+
+        if (!matchIsValidTel(phone)) {
+            formDispatch({
+                type: "FAILED",
+                payload: {
+                    error: {
+                        title: "Invalid phone number",
+                        details: "Please enter valid phone number",
+                    },
+                },
+            });
+            return;
+        }
+
         formDispatch({ type: "SUBMITTING" });
+
         const appVerifier = new RecaptchaVerifier(
             "recaptcha-container",
-            {},
+            {
+                size: "invisible",
+            },
             auth as Auth
         );
-        signInWithPhoneNumber(auth as Auth, data.phone, appVerifier)
+
+        signInWithPhoneNumber(auth as Auth, phone, appVerifier)
             .then((confirmationResult) => {
                 formDispatch({ type: "SUCCESS" });
                 setShowOTP(true);
@@ -62,35 +77,37 @@ function LoginByPhone() {
 
     if (!showOTP) {
         return (
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                <Stack spacing={2}>
-                    <Collapse in={!!formReducerState.error}>
-                        <Alert severity="error">
-                            <AlertTitle>
-                                {formReducerState.error?.title}
-                            </AlertTitle>
-                            {formReducerState.error?.details}
-                        </Alert>
-                    </Collapse>
-                    <TextField
-                        label="Phone"
-                        type="phone"
-                        {...register("phone", {
-                            required: "Please enter your phone number",
-                        })}
-                    ></TextField>
-                    <div
-                        ref={recaptchaRef}
-                        id="recaptcha-container"
-                        style={{ alignSelf: "center" }}
-                    ></div>
+            <form onSubmit={onSubmit} noValidate>
+                <Stack spacing={4}>
+                    <Stack spacing={2}>
+                        {!!formReducerState.error && (
+                            <Alert severity="error">
+                                <AlertTitle>
+                                    {formReducerState.error?.title}
+                                </AlertTitle>
+                                {formReducerState.error?.details}
+                            </Alert>
+                        )}
+                        <MuiTelInput
+                            error={!!formReducerState.error}
+                            value={phone}
+                            onChange={handleChange}
+                            defaultCountry="PH"
+                        ></MuiTelInput>
+                        <div
+                            ref={recaptchaRef}
+                            id="recaptcha-container"
+                            style={{ display: "none" }}
+                        ></div>
+                    </Stack>
                     <Button
                         type="submit"
                         variant="contained"
                         disabled={formReducerState.status === "P"}
                         disableElevation
+                        size="large"
                     >
-                        Login
+                        NEXT
                     </Button>
                 </Stack>
             </form>

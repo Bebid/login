@@ -17,10 +17,6 @@ export type LoginByEmailForm = {
     password: string;
 };
 
-export type LoginByPhoneForm = {
-    phone: string;
-};
-
 export type SessionProps = {
     saveToken: (tokenDetails: any) => {};
     deleteToken: () => {};

@@ -11,6 +11,7 @@ export const formReducer = (state: Form, action: ReducerAction): Form => {
             return {
                 ...state,
                 status: "P",
+                error: null,
             };
         case "SUCCESS":
             return {
