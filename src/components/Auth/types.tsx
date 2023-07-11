@@ -32,6 +32,7 @@ export type SignupForm = {
 
 export type UserDetails = {
     username: string;
+    email: string;
 };
 
 export type ForgetPasswordForm = {

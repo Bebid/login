@@ -69,7 +69,7 @@ function App() {
                     <Route
                         path="/signup"
                         element={
-                            <CenteredContent>
+                            <CenteredContent spacing={4}>
                                 <Signup></Signup>
                             </CenteredContent>
                         }
