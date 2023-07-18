@@ -1,7 +1,6 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 import { Stack, Link } from "@mui/material";
-import "./nav.css";
+import "../../../../assets/styles/nav.css";
 
 function AuthNav() {
     return (

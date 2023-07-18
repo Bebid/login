@@ -1,4 +1,4 @@
-import { ReducerAction } from "../types";
+import { ReducerAction } from "../assets/types/types";
 
 type PassVisibility = {
     passVis: boolean;

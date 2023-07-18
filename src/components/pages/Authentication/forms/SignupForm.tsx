@@ -18,11 +18,11 @@ import { Auth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, set, ref } from "firebase/database";
 import axios from "axios";
 
-import { SignupForm, UserDetails } from "./types";
-import { getErrMessage } from "../../firebase/errorMessages";
-import { formReducer, formInitState } from "./Reducers/formReducer";
-import { AuthContext, authContext } from "../../App";
-import TermsConditions from "./Modal/Terms&Conditions";
+import { SignupForm, UserDetails } from "../../../../assets/types/types";
+import { getErrMessage } from "../../../../libs/firebase/errorMessages";
+import { formReducer, formInitState } from "../../../../reducers/formReducer";
+import { AuthContext, authContext } from "../../../../App";
+import TermsConditions from "../../../UI/Terms&Conditions";
 
 function Signup() {
     const {

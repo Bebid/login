@@ -16,10 +16,10 @@ import { useForm } from "react-hook-form";
 import { Auth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
-import { formReducer, formInitState } from "./Reducers/formReducer";
-import { LoginByEmailForm } from "./types";
-import { getErrMessage } from "../../firebase/errorMessages";
-import { AuthContext, authContext } from "../../App";
+import { formReducer, formInitState } from "../../../../reducers/formReducer";
+import { LoginByEmailForm } from "../../../../assets/types/types";
+import { getErrMessage } from "../../../../libs/firebase/errorMessages";
+import { AuthContext, authContext } from "../../../../App";
 
 function LoginByEmail() {
     const {

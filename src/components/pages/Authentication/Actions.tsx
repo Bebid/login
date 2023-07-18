@@ -20,11 +20,11 @@ import {
     Auth,
 } from "firebase/auth";
 
-import getFirebaseAuth from "../../firebase/auth";
-import { ResetPasswordForm } from "./types";
-import { getErrMessage } from "../../firebase/errorMessages";
-import { AuthContext, authContext } from "../../App";
-import { formInitState, formReducer } from "./Reducers/formReducer";
+import getFirebaseAuth from "../../../libs/firebase/auth";
+import { ResetPasswordForm } from "../../../assets/types/types";
+import { getErrMessage } from "../../../libs/firebase/errorMessages";
+import { AuthContext, authContext } from "../../../App";
+import { formInitState, formReducer } from "../../../reducers/formReducer";
 
 function Actions() {
     const [searchParams] = useSearchParams();

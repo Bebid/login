@@ -1,4 +1,4 @@
-import CenteredContent from "../pages/CenteredContent";
+import CenteredContent from "../../layouts/CenteredContent";
 import { Typography } from "@mui/material";
 
 function PageLoader() {

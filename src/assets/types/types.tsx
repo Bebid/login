@@ -1,4 +1,4 @@
-import { Error } from "../../firebase/errorMessages";
+import { Error } from "../../libs/firebase/errorMessages";
 
 export type Form = {
     status: "I" | "P" | "D";

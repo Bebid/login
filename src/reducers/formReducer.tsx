@@ -1,4 +1,4 @@
-import { Form, ReducerAction } from "../types";
+import { Form, ReducerAction } from "../assets/types/types";
 
 export const formInitState: Form = {
     status: "I",

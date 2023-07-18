@@ -13,10 +13,10 @@ import { Auth, sendPasswordResetEmail } from "firebase/auth";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import { ForgetPasswordForm } from "./types";
-import { formReducer, formInitState } from "./Reducers/formReducer";
-import { getErrMessage } from "../../firebase/errorMessages";
-import { AuthContext, authContext } from "../../App";
+import { ForgetPasswordForm } from "../../../../assets/types/types";
+import { formReducer, formInitState } from "../../../../reducers/formReducer";
+import { getErrMessage } from "../../../../libs/firebase/errorMessages";
+import { AuthContext, authContext } from "../../../../App";
 
 function ForgetPassword() {
     const { auth } = useContext(authContext) as AuthContext;

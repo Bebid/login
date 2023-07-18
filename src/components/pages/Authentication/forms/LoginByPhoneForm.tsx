@@ -8,10 +8,10 @@ import {
 import { Stack, Button, Alert, AlertTitle } from "@mui/material";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 
-import OTP from "./OTP";
-import { formReducer, formInitState } from "./Reducers/formReducer";
-import { getErrMessage } from "../../firebase/errorMessages";
-import { AuthContext, authContext } from "../../App";
+import FirebaseOTPForm from "./FirebaseOTPForm";
+import { formReducer, formInitState } from "../../../../reducers/formReducer";
+import { getErrMessage } from "../../../../libs/firebase/errorMessages";
+import { AuthContext, authContext } from "../../../../App";
 
 function LoginByPhone() {
     const { auth } = useContext(authContext) as AuthContext;
@@ -114,10 +114,10 @@ function LoginByPhone() {
         );
     }
     return (
-        <OTP
+        <FirebaseOTPForm
             style={{ display: showOTP ? "flex" : "none" }}
             confirmOTP={confirmOTP}
-        ></OTP>
+        ></FirebaseOTPForm>
     );
 }
 

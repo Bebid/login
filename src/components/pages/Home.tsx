@@ -1,8 +1,7 @@
-import React from "react";
-import logo from "../images/logo.png";
-import react from "../images/react.png";
-import mui from "../images/mui.png";
-import firebase from "../images/firebase.png";
+import logo from "../../assets/images/logo.png";
+import react from "../../assets/images/react.png";
+import mui from "../../assets/images/mui.png";
+import firebase from "../../assets/images/firebase.png";
 
 import { Button, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";

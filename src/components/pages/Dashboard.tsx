@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext, authContext } from "../App";
+import { AuthContext, authContext } from "../../App";
 
 function Dashboard() {
     const { auth } = useContext(authContext) as AuthContext;
