@@ -20,6 +20,7 @@ import { formReducer, formInitState } from "../../../../reducers/formReducer";
 import { LoginByEmailForm } from "../../../../assets/types/types";
 import { getErrMessage } from "../../../../libs/firebase/errorMessages";
 import { AuthContext, authContext } from "../../../../App";
+import MyLink from "../../../UI/MyLink";
 
 function LoginByEmail() {
     const {
@@ -120,13 +121,7 @@ function LoginByEmail() {
                             ),
                         }}
                     ></TextField>
-                    <Link
-                        component={RouterLink}
-                        to="/forgot_password"
-                        style={{ textDecoration: "none" }}
-                    >
-                        Forget Password?
-                    </Link>
+                    <MyLink to="/forgot_password">Forget Password?</MyLink>
                 </Stack>
                 <Button
                     variant="contained"
@@ -139,13 +134,7 @@ function LoginByEmail() {
                 </Button>
                 <Typography>
                     Doesn't have an account?{" "}
-                    <Link
-                        component={RouterLink}
-                        to="/signup"
-                        style={{ textDecoration: "none" }}
-                    >
-                        Signup
-                    </Link>
+                    <MyLink to="/signup">Signup</MyLink>
                 </Typography>
             </Stack>
         </form>

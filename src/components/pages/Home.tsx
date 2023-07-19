@@ -6,20 +6,24 @@ import firebase from "../../assets/images/firebase.png";
 import { Button, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import CenteredContent from "../../layouts/CenteredContent";
+
 function Home() {
     return (
-        <>
-            <Stack direction="row" alignItems="center" spacing={3}>
-                <img
-                    src={logo}
-                    alt="logo"
-                    style={{ width: "64px", height: "auto" }}
-                ></img>
-                <Typography variant="h2">Login</Typography>
+        <CenteredContent>
+            <Stack spacing={2}>
+                <Stack direction="row" alignItems="center" spacing={3}>
+                    <img
+                        src={logo}
+                        alt="logo"
+                        style={{ width: "64px", height: "auto" }}
+                    ></img>
+                    <Typography variant="h2">Login</Typography>
+                </Stack>
+                <Typography variant="subtitle1">
+                    A case study aimed to familiarized with user authentication
+                </Typography>
             </Stack>
-            <Typography variant="subtitle1">
-                A case study aimed to familiarized with user authentication
-            </Typography>
 
             <Stack direction="row" alignItems="center" spacing={2}>
                 <Typography variant="h5">Tech Stack:</Typography>
@@ -48,7 +52,7 @@ function Home() {
                     TRY NOW
                 </Button>
             </Link>
-        </>
+        </CenteredContent>
     );
 }
 

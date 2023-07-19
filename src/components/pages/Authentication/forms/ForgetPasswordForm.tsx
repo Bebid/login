@@ -1,22 +1,26 @@
 import { useReducer, useContext } from "react";
 import {
     Stack,
-    Grid,
     TextField,
     Button,
     Alert,
     AlertTitle,
-    Collapse,
+    Link,
+    Typography,
 } from "@mui/material";
+import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined";
 import { useForm } from "react-hook-form";
 import { Auth, sendPasswordResetEmail } from "firebase/auth";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link as RouteLink, useNavigate } from "react-router-dom";
 
 import { ForgetPasswordForm } from "../../../../assets/types/types";
 import { formReducer, formInitState } from "../../../../reducers/formReducer";
 import { getErrMessage } from "../../../../libs/firebase/errorMessages";
 import { AuthContext, authContext } from "../../../../App";
+import Announcement from "../../../UI/Announcement";
+import CenteredContent from "../../../../layouts/CenteredContent";
+import MyLink from "../../../UI/MyLink";
 
 function ForgetPassword() {
     const { auth } = useContext(authContext) as AuthContext;
@@ -46,64 +50,80 @@ function ForgetPassword() {
             });
     };
 
-    return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={2}>
-                <Collapse
-                    in={
-                        formReducerState.status === "D" &&
-                        !formReducerState.error
-                    }
-                >
-                    <Alert severity="success">
-                        <AlertTitle>Mail sent</AlertTitle>
-                        Check your email to see how you can change your
-                        password.
-                    </Alert>
-                </Collapse>
-                <Collapse
-                    in={
-                        formReducerState.status === "D" &&
-                        !!formReducerState.error
-                    }
-                >
-                    <Alert severity="error">
-                        <AlertTitle>
-                            {formReducerState.error?.title}t
-                        </AlertTitle>
-                        {formReducerState.error?.details}
-                    </Alert>
-                </Collapse>
-                <TextField
-                    error={!!errors.email}
-                    label="Email"
-                    helperText={errors.email?.message}
-                    {...register("email", {
-                        required: "Please enter your email",
-                        validate: {
-                            isNotExist: async (email) => {
-                                const response = await axios.get(
-                                    `https://login-aa13c-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="email"&equalTo="${email}"`
-                                );
-                                return (
-                                    Object.keys(response.data).length !== 0 ||
-                                    "Email address is not registered"
-                                );
-                            },
-                        },
-                    })}
-                ></TextField>
-                <Button
-                    variant="contained"
-                    disableElevation
-                    type="submit"
-                    disabled={formReducerState.status === "P"}
-                >
-                    Send Email
-                </Button>
-                <Link to="/login">Login</Link>
-            </Stack>
-        </form>
+    const navigate = useNavigate();
+
+    return formReducerState.status === "D" && !formReducerState.error ? (
+        <Announcement
+            icon={
+                <MarkEmailReadOutlinedIcon
+                    color="success"
+                    sx={{ fontSize: "40px" }}
+                ></MarkEmailReadOutlinedIcon>
+            }
+            title="Check you email"
+            description="We have sent password recover instruction to your email"
+        >
+            <Typography variant="body2">
+                Did not receive the email? Check your spam filter
+                <br /> or try{" "}
+                <Link href="#" onClick={() => navigate(0)}>
+                    another email address
+                </Link>
+            </Typography>
+        </Announcement>
+    ) : (
+        <CenteredContent
+            title="Forgot Password?"
+            description="Enter the email address associated with your account."
+        >
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Stack spacing={4}>
+                    <Stack spacing={2}>
+                        {formReducerState.status === "D" &&
+                            !!formReducerState.error && (
+                                <Alert severity="error">
+                                    <AlertTitle>
+                                        {formReducerState.error?.title}
+                                    </AlertTitle>
+                                    {formReducerState.error?.details}
+                                </Alert>
+                            )}
+                        <TextField
+                            error={!!errors.email}
+                            label="Email"
+                            helperText={errors.email?.message}
+                            {...register("email", {
+                                required: "Please enter your email",
+                                validate: {
+                                    isNotExist: async (email) => {
+                                        const response = await axios.get(
+                                            `https://login-aa13c-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="email"&equalTo="${email}"`
+                                        );
+                                        return (
+                                            Object.keys(response.data)
+                                                .length !== 0 ||
+                                            "Email address is not registered"
+                                        );
+                                    },
+                                },
+                            })}
+                        ></TextField>
+                        <Button
+                            variant="contained"
+                            disableElevation
+                            type="submit"
+                            disabled={formReducerState.status === "P"}
+                        >
+                            Send instructions
+                        </Button>
+                    </Stack>
+                    <Typography>
+                        Remember Password?&nbsp;
+                        <MyLink to="/login">Login</MyLink>
+                    </Typography>
+                </Stack>
+            </form>
+        </CenteredContent>
     );
 }
 
