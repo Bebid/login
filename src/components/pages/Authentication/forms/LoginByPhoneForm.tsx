@@ -113,12 +113,7 @@ function LoginByPhone() {
             </form>
         );
     }
-    return (
-        <FirebaseOTPForm
-            style={{ display: showOTP ? "flex" : "none" }}
-            confirmOTP={confirmOTP}
-        ></FirebaseOTPForm>
-    );
+    return <FirebaseOTPForm confirmOTP={confirmOTP}></FirebaseOTPForm>;
 }
 
 export default LoginByPhone;

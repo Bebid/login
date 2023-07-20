@@ -12,15 +12,18 @@ import MarkEmailReadOutlinedIcon from "@mui/icons-material/MarkEmailReadOutlined
 import { useForm } from "react-hook-form";
 import { Auth, sendPasswordResetEmail } from "firebase/auth";
 import axios from "axios";
-import { Link as RouteLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { ForgetPasswordForm } from "../../../../assets/types/types";
 import { formReducer, formInitState } from "../../../../reducers/formReducer";
 import { getErrMessage } from "../../../../libs/firebase/errorMessages";
 import { AuthContext, authContext } from "../../../../App";
 import Announcement from "../../../UI/Announcement";
 import CenteredContent from "../../../../layouts/CenteredContent";
 import MyLink from "../../../UI/MyLink";
+
+type ForgetPasswordForm = {
+    email: string;
+};
 
 function ForgetPassword() {
     const { auth } = useContext(authContext) as AuthContext;

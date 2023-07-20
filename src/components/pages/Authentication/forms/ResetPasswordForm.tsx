@@ -17,12 +17,16 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Auth, confirmPasswordReset } from "firebase/auth";
 
 import { formReducer, formInitState } from "../../../../reducers/formReducer";
-import { ResetPasswordForm } from "../../../../assets/types/types";
 import { AuthContext, authContext } from "../../../../App";
 import { getErrMessage } from "../../../../libs/firebase/errorMessages";
 import Announcement from "../../../UI/Announcement";
 import MyLink from "../../../UI/MyLink";
 import CenteredContent from "../../../../layouts/CenteredContent";
+
+type ResetPasswordForm = {
+    newPass: string;
+    confirmNewPass: string;
+};
 
 function ResetPassword() {
     const {

@@ -12,15 +12,14 @@ import {
 import { AuthContext, authContext } from "../../../../App";
 import { formInitState, formReducer } from "../../../../reducers/formReducer";
 import { getErrMessage } from "../../../../libs/firebase/errorMessages";
-import { CompWithStyle } from "../../../../assets/types/types";
 import "../../../../assets/styles/style.css";
 import OTP from "../../../UI/OTP";
 
-type OTPProps = CompWithStyle & {
+type OTPProps = {
     confirmOTP?: ConfirmationResult;
 };
 
-function FirebaseOTPForm({ style, confirmOTP }: OTPProps) {
+function FirebaseOTPForm({ confirmOTP }: OTPProps) {
     const navigate = useNavigate();
 
     const { auth } = useContext(authContext) as AuthContext;
@@ -63,7 +62,7 @@ function FirebaseOTPForm({ style, confirmOTP }: OTPProps) {
     return (
         <form onSubmit={onSubmit} noValidate>
             <Stack spacing={4}>
-                <Stack spacing={2} sx={style}>
+                <Stack spacing={2}>
                     {!!formReducerState.error && (
                         <Alert severity="error">
                             <AlertTitle>
@@ -72,8 +71,8 @@ function FirebaseOTPForm({ style, confirmOTP }: OTPProps) {
                             {formReducerState.error?.details}
                         </Alert>
                     )}
+                    <OTP otp={otp} setOtp={setOtp} submitOtp={submitOtp}></OTP>
                 </Stack>
-                <OTP otp={otp} setOtp={setOtp} submitOtp={submitOtp}></OTP>
                 <Button
                     ref={btnFormRef}
                     type="submit"

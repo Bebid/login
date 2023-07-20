@@ -17,10 +17,14 @@ import { Auth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 import { formReducer, formInitState } from "../../../../reducers/formReducer";
-import { LoginByEmailForm } from "../../../../assets/types/types";
 import { getErrMessage } from "../../../../libs/firebase/errorMessages";
 import { AuthContext, authContext } from "../../../../App";
 import MyLink from "../../../UI/MyLink";
+
+type LoginByEmailForm = {
+    email: string;
+    password: string;
+};
 
 function LoginByEmail() {
     const {
