@@ -23,9 +23,9 @@ function OTP({ otp, setOtp, submitOtp }: OTPType) {
         newOTP[index] = value.substring(value.length - 1);
         setOtp(newOTP);
 
-        if (value !== "" && index < 5) {
+        if (index < 5) {
             setLastDigitFilled(false);
-            setCurOtpIndex(index + 1);
+            value && setCurOtpIndex(index + 1);
         } else {
             setLastDigitFilled(true);
         }
@@ -33,7 +33,7 @@ function OTP({ otp, setOtp, submitOtp }: OTPType) {
 
     const backOtpIndex = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Backspace" && curOtpIndex !== 0) {
-            setCurOtpIndex(curOtpIndex - 1);
+            setCurOtpIndex((value) => value - 1);
         }
     };
 
