@@ -14,12 +14,12 @@ import { Auth, sendPasswordResetEmail } from "firebase/auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { formReducer, formInitState } from "../../../../reducers/formReducer";
-import { getErrMessage } from "../../../../libs/firebase/errorMessages";
-import { AuthContext, authContext } from "../../../../App";
-import Announcement from "../../../UI/Announcement";
-import CenteredContent from "../../../../layouts/CenteredContent";
-import MyLink from "../../../UI/MyLink";
+import { formReducer, formInitState } from "../../reducers/formReducer";
+import { getErrMessage } from "../../libs/firebase/errorMessages";
+import { AuthContext, authContext } from "../../App";
+import Announcement from "../UI/Announcement";
+import CenteredContent from "../../layouts/CenteredContent";
+import MyLink from "../UI/MyLink";
 
 type ForgetPasswordForm = {
     email: string;

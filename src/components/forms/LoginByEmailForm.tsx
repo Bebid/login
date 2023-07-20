@@ -16,10 +16,10 @@ import { useForm } from "react-hook-form";
 import { Auth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
-import { formReducer, formInitState } from "../../../../reducers/formReducer";
-import { getErrMessage } from "../../../../libs/firebase/errorMessages";
-import { AuthContext, authContext } from "../../../../App";
-import MyLink from "../../../UI/MyLink";
+import { formReducer, formInitState } from "../../reducers/formReducer";
+import { getErrMessage } from "../../libs/firebase/errorMessages";
+import { AuthContext, authContext } from "../../App";
+import MyLink from "../UI/MyLink";
 
 type LoginByEmailForm = {
     email: string;
@@ -62,7 +62,7 @@ function LoginByEmail() {
     };
 
     return (
-        <form id="form-login" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <Stack spacing={4}>
                 <Stack spacing={2}>
                     {!!formReducerState.error && (

@@ -9,9 +9,9 @@ import { Stack, Button, Alert, AlertTitle } from "@mui/material";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 
 import FirebaseOTPForm from "./FirebaseOTPForm";
-import { formReducer, formInitState } from "../../../../reducers/formReducer";
-import { getErrMessage } from "../../../../libs/firebase/errorMessages";
-import { AuthContext, authContext } from "../../../../App";
+import { formReducer, formInitState } from "../../reducers/formReducer";
+import { getErrMessage } from "../../libs/firebase/errorMessages";
+import { AuthContext, authContext } from "../../App";
 
 function LoginByPhone() {
     const { auth } = useContext(authContext) as AuthContext;

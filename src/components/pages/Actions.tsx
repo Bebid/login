@@ -2,11 +2,11 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { verifyPasswordResetCode, Auth } from "firebase/auth";
 
-import { AuthContext, authContext } from "../../../App";
-import PageLoader from "../../UI/PageLoader";
-import useTimer from "../../../hooks/useTimer";
-import ResetPassword from "./forms/ResetPasswordForm";
-import Unauthorized from "../Unauthorized";
+import { AuthContext, authContext } from "../../App";
+import PageLoader from "../UI/PageLoader";
+import useTimer from "../../hooks/useTimer";
+import ResetPassword from "../forms/ResetPasswordForm";
+import Unauthorized from "./Unauthorized";
 
 function Actions() {
     const navigate = useNavigate();

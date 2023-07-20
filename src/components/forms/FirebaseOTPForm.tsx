@@ -9,11 +9,11 @@ import {
     signInWithCredential,
 } from "firebase/auth";
 
-import { AuthContext, authContext } from "../../../../App";
-import { formInitState, formReducer } from "../../../../reducers/formReducer";
-import { getErrMessage } from "../../../../libs/firebase/errorMessages";
-import "../../../../assets/styles/style.css";
-import OTP from "../../../UI/OTP";
+import { AuthContext, authContext } from "../../App";
+import { formInitState, formReducer } from "../../reducers/formReducer";
+import { getErrMessage } from "../../libs/firebase/errorMessages";
+import "../../assets/styles/style.css";
+import OTP from "../UI/OTP";
 
 type OTPProps = {
     confirmOTP?: ConfirmationResult;

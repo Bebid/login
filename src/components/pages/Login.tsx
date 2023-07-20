@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import CenteredContent from "../../layouts/CenteredContent";
-import AuthNav from "./Authentication/navs/AuthNav";
+import AuthNav from "../navs/AuthNav";
 
 function Login() {
     return (

@@ -11,11 +11,11 @@ import Authenticated from "./middleware/Authenticated";
 
 import Dashboard from "./components/pages/Dashboard";
 import Home from "./components/pages/Home";
-import Actions from "./components/pages/Authentication/Actions";
-import ForgetPassword from "./components/pages/Authentication/forms/ForgetPasswordForm";
-import LoginByEmail from "./components/pages/Authentication/forms/LoginByEmailForm";
-import LoginByPhone from "./components/pages/Authentication/forms/LoginByPhoneForm";
-import Signup from "./components/pages/Authentication/forms/SignupForm";
+import Actions from "./components/pages/Actions";
+import ForgetPassword from "./components/forms/ForgetPasswordForm";
+import LoginByEmail from "./components/forms/LoginByEmailForm";
+import LoginByPhone from "./components/forms/LoginByPhoneForm";
+import Signup from "./components/forms/SignupForm";
 import PageLoader from "./components/UI/PageLoader";
 import Login from "./components/pages/Login";
 
@@ -32,7 +32,7 @@ export const authContext = React.createContext<AuthContext>({
 function App() {
     const auth = getFirebaseAuth();
     const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         onAuthStateChanged(auth, (response) => {

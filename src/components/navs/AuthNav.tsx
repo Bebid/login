@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { Stack, Link } from "@mui/material";
 
-import MyLink from "../../../UI/MyLink";
-import "../../../../assets/styles/nav.css";
+import MyLink from "../UI/MyLink";
+import "../../assets/styles/nav.css";
 
 function AuthNav() {
     return (
